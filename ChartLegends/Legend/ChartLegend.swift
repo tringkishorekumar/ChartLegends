@@ -13,6 +13,7 @@ public protocol ChartLegend {
     var text: String {get}
     var color: UIColor {get}
     var font: UIFont? {get} // Overrides default font
+    var textColor: UIColor? {get}
     
     func contentSize(font: UIFont) -> CGSize
 }

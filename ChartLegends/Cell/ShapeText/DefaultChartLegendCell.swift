@@ -29,6 +29,10 @@ public class DefaultChartLegendCell: UICollectionViewCell, ChartLegendCell {
                 
                 label.font = legend.font ?? defaultFont
 
+                if let textColor = legend.textColor {
+                    label.textColor = textColor
+                }
+                
                 let shapeLayer = CAShapeLayer()
 
                 let circlePath: UIBezierPath = legend.pathGenerator?(CGSize(width: shapeWidth.constant, height: shapeWidth.constant)) ?? {

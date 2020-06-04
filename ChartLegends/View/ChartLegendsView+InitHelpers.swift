@@ -17,6 +17,16 @@ extension ChartLegendsView {
     public func setLegends(_ shape: ChartLegendShape, _ legends: [(text: String, color: UIColor)]) {
         self.legends = legends.map {DefaultShapeChartLegend(text: $0, color: $1, shape: shape)}
     }
+    
+    public func setLegends(_ shape: ChartLegendShape, _ legends: [(text: String, color: UIColor, textColor: UIColor?)]) {
+        self.legends = legends.map {DefaultShapeChartLegend(text: $0, color: $1, textColor: $2, shape: shape)}
+    }
+    
+    public func setLegends(_ legends: [(text: String, color: UIColor, textColor: UIColor)]) {
+        self.legends = legends.map { legend in
+            return DefaultPlainChartLegend(text: legend.text, color: legend.color, textColor: legend.textColor)
+        }
+    }
 
     public func setLegends(_ pathGenerator: @escaping (CGSize) -> UIBezierPath, _ legends: [(text: String, color: UIColor)]) {
         self.legends = legends.map {DefaultShapeChartLegend(text: $0, color: $1, pathGenerator: pathGenerator)}

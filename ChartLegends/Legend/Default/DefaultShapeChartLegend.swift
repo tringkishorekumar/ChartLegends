@@ -17,22 +17,26 @@ public class DefaultShapeChartLegend: DefaultPlainChartLegend, ShapeChartLegend 
     public convenience init(text: String, color: UIColor, shape: ChartLegendShape) {
         self.init(text: text, color: color, font: nil, shape: shape)
     }
+    
+    public convenience init(text: String, color: UIColor, textColor: UIColor?, shape: ChartLegendShape) {
+        self.init(text: text, color: color, font: nil, textColor: textColor, shape: shape)
+    }
 
-    public convenience init(text: String, color: UIColor, pathGenerator: @escaping ((CGSize) -> UIBezierPath)) {
-        self.init(text: text, color: color, font: nil, pathGenerator: pathGenerator)
+    public convenience init(text: String, color: UIColor, textColor: UIColor? = nil, pathGenerator: @escaping ((CGSize) -> UIBezierPath)) {
+        self.init(text: text, color: color, font: nil, textColor: textColor, pathGenerator: pathGenerator)
     }
     
-    public convenience init(text: String, color: UIColor, font: UIFont?, shape: ChartLegendShape) {
-        self.init(text: text, color: color, font: font, shape: shape, pathGenerator: nil)
+    public convenience init(text: String, color: UIColor, font: UIFont?, textColor: UIColor? = nil, shape: ChartLegendShape) {
+        self.init(text: text, color: color, font: font, textColor: textColor, shape: shape, pathGenerator: nil)
     }
 
-    public convenience init(text: String, color: UIColor, font: UIFont?, pathGenerator: @escaping ((CGSize) -> UIBezierPath)) {
-        self.init(text: text, color: color, font: font, shape: .circle(radius: 8), pathGenerator: pathGenerator)
+    public convenience init(text: String, color: UIColor, font: UIFont?, textColor: UIColor? = nil, pathGenerator: @escaping ((CGSize) -> UIBezierPath)) {
+        self.init(text: text, color: color, font: font, textColor: textColor, shape: .circle(radius: 8), pathGenerator: pathGenerator)
     }
 
-    init(text: String, color: UIColor, font: UIFont?, shape: ChartLegendShape, pathGenerator: ((CGSize) -> UIBezierPath)?) {
+    init(text: String, color: UIColor, font: UIFont?, textColor: UIColor? = nil, shape: ChartLegendShape, pathGenerator: ((CGSize) -> UIBezierPath)?) {
         self.shape = shape
         self.pathGenerator = pathGenerator
-        super.init(text: text, color: color, font: font)
+        super.init(text: text, color: color, font: font, textColor: textColor)
     }
 }

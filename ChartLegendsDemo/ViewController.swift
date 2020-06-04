@@ -15,19 +15,19 @@ class ViewController: UIViewController, ChartLegendsDelegate {
     @IBOutlet var horizontalFlowLegendsView: ChartLegendsView!
     @IBOutlet var columnsLegendsView: ChartLegendsView!
     @IBOutlet var singleColumnLegendsView: ChartLegendsView!
-    
+    static let textColor = UIColor.black
     let legends = [
-        (text: "Chemicals", color: UIColor.orange),
-        (text: "Forestry", color: UIColor.green),
-        (text: "Construction", color: UIColor.gray),
-        (text: "Aerospace", color: UIColor.purple),
-        (text: "Automobiles", color: UIColor.blue),
-        (text: "Oil & Gas", color: UIColor.black),
-        (text: "Health", color: UIColor.red),
-        (text: "Electricity", color: UIColor.magenta),
-        (text: "Finance", color: UIColor.cyan),
-        (text: "Insurance", color: UIColor.darkGray),
-        (text: "Technology", color: UIColor.brown)
+        (text: "Chemicals", color: UIColor.orange, textColor: ViewController.textColor),
+        (text: "Forestry", color: UIColor.green, textColor: ViewController.textColor),
+        (text: "Construction", color: UIColor.gray, textColor: ViewController.textColor),
+        (text: "Aerospace", color: UIColor.purple, textColor: ViewController.textColor),
+        (text: "Automobiles", color: UIColor.blue, textColor: ViewController.textColor),
+        (text: "Oil & Gas", color: UIColor.black, textColor: ViewController.textColor),
+        (text: "Health", color: UIColor.red, textColor: ViewController.textColor),
+        (text: "Electricity", color: UIColor.magenta, textColor: ViewController.textColor),
+        (text: "Finance", color: UIColor.cyan, textColor: ViewController.textColor),
+        (text: "Insurance", color: UIColor.darkGray, textColor: ViewController.textColor),
+        (text: "Technology", color: UIColor.brown, textColor: ViewController.textColor)
     ]
     
     override func viewDidLoad() {
@@ -35,8 +35,8 @@ class ViewController: UIViewController, ChartLegendsDelegate {
 
         horizontalFlowSmallLegendsView.setLegends(.rect(width: 12, height: 12), Array(legends[0...2]))
 
-        horizontalFlowLegendsView.setLegends(.circle(radius: 7), legends)
-        columnsLegendsView.setLegends(legends)
+        horizontalFlowLegendsView?.setLegends(.circle(radius: 7), legends)
+        columnsLegendsView.setLegends(.circle(radius: 7), legends)
         
         customPathExample()
         
@@ -52,13 +52,13 @@ class ViewController: UIViewController, ChartLegendsDelegate {
         This demonstrates 2 things: On one side, that it's possible to pass a custom path, and on the other, that it's possible to pass different settings, like shape or font, to individual cells.
         Note that using `map` here is only for demo purposes, to reuse the legends array we already have. You may want to create directly the array with `DefaultShapeChartLegend` instances. */
         let defaultShape: ChartLegendShape = .rect(width: 14, height: 5)
-        let mixedShapeLegends: [DefaultShapeChartLegend] = legends.map {
-            if $0 == "Health" {
-                return DefaultShapeChartLegend(text: $0, color: $1, pathGenerator: {[weak self] size in
+        let mixedShapeLegends: [DefaultShapeChartLegend] = legends.map { legend in
+            if legend.text == "Health" {
+                return DefaultShapeChartLegend(text: legend.text, color: legend.color, textColor: legend.textColor, pathGenerator: {[weak self] size in
                     self?.createHeartPath(size: size, scale: 1) ?? UIBezierPath()
                 })
             } else {
-                return DefaultShapeChartLegend(text: $0, color: $1, shape: defaultShape)
+                return DefaultShapeChartLegend(text: legend.text, color: legend.color, textColor: legend.textColor, shape: defaultShape)
             }
         }
         
